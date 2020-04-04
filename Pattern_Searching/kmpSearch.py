@@ -45,7 +45,7 @@ def kmpSearch(text, key):
                 i+=1
                 
         if j == N:
-            index.append(i-N+1)
+            index.append(i-N)
             j = 0
     
     return index
