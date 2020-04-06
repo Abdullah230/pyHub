@@ -58,3 +58,27 @@ def faTable(text):
             
     return table, tList
             
+def faSearch(text, key):
+    table, ref = faTable(key)
+    N = len(key)
+    state = 0
+    index = []
+    for i in range(len(text)):
+        if text[i] in ref:
+            state = table[state][ref.index(text[i])]
+            
+        else:
+            state = 0
+        
+        if state == len(table) - 1:
+            index.append(i-N+1)
+    
+    return index
+            
+            
+
+
+
+
+
+
