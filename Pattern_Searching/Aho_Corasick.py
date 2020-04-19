@@ -12,25 +12,33 @@ def get_key(val, dictionary):
             return key
 
 class tree:
-    def __init__(self,tree):
+    def __init__(self):
         self.treeList = []
         self.nodes = 0
     
         
-    def append_node(self,word):
-        i = 0
+    def append_word(self,word):
+        #Add while loop to start from the start of the word every time
         j = 0
-        if self.nodes == 0:
-            self.treeList.append(Node(self.nodes+1, word[i]))
-        
-        else:
-            if len(self.treeList[0].children) == 0:
-                self.treeList[0].attach_node(Node(self.nodes+1, letter))
-                
+        for i in range(len(word)):
+            if self.nodes == 0:
+                self.treeList.append(Node(self.nodes+1, word[j]))
+                self.nodes += 1
+                j += 1
             else:
-                while  in self.treeList[i].children.values():
-                    i = get_key(letter, self.treeList[i].children)
-                
+                if len(self.treeList[0].children) == 0:
+                    self.treeList[0].attach_node(Node(self.nodes, word[0]))
+                    self.nodes += 1
+                    j += 1
+                else:
+                    if word[i] in self.treeList[j-1].children.values():
+                        i = get_key(word[i], self.treeList[j-1].children)
+                    else:
+                        self.treeList[j-1].attach_node(Node(self.nodes, word[i]))
+                        self.nodes += 1
+                        j += 1
+        return self.treeList[0].children
+                    
         
 
         
