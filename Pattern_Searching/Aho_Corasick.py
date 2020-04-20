@@ -15,31 +15,31 @@ class tree:
     def __init__(self):
         self.treeList = []
         self.nodes = 0
-    
+        return
         
     def append_word(self,word):
-        #Add while loop to start from the start of the word every time
         j = 0
         for i in range(len(word)):
             if self.nodes == 0:
-                self.treeList.append(Node(self.nodes+1, word[j]))
+                self.treeList.append(Node(self.nodes, ''))
+                self.nodes += 1
+
+            if len(self.treeList[0].children) == 0:
+                self.treeList.append(Node(self.nodes, word[i]))
+                self.treeList[0].attach_node(Node(self.nodes, word[i]))
                 self.nodes += 1
                 j += 1
+                
             else:
-                if len(self.treeList[0].children) == 0:
-                    self.treeList[0].attach_node(Node(self.nodes, word[0]))
+                if word[i] in self.treeList[j].children.values():
+                    j = get_key(word[i], self.treeList[j].children)
+                else:
+                    self.treeList.append(Node(self.nodes, word[i]))
+                    self.treeList[j].attach_node(Node(self.nodes, word[i]))
                     self.nodes += 1
                     j += 1
-                else:
-                    if word[i] in self.treeList[j-1].children.values():
-                        i = get_key(word[i], self.treeList[j-1].children)
-                    else:
-                        self.treeList[j-1].attach_node(Node(self.nodes, word[i]))
-                        self.nodes += 1
-                        j += 1
-        return self.treeList[0].children
-                    
-        
+        return
+
 
         
 # Nodes are just structures
