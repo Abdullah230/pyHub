@@ -17,27 +17,38 @@ class tree:
         self.nodes = 0
         return
         
-    def append_word(self,word):
+    def append_words(self,words):
         j = 0
-        for i in range(len(word)):
-            if self.nodes == 0:
-                self.treeList.append(Node(self.nodes, ''))
-                self.nodes += 1
-
-            if len(self.treeList[0].children) == 0:
-                self.treeList.append(Node(self.nodes, word[i]))
-                self.treeList[0].attach_node(Node(self.nodes, word[i]))
-                self.nodes += 1
-                j += 1
-                
-            else:
-                if word[i] in self.treeList[j].children.values():
-                    j = get_key(word[i], self.treeList[j].children)
-                else:
+        for word in words:
+            k = 0
+            for i in range(len(word)):
+                if self.nodes == 0:
+                    self.treeList.append(Node(self.nodes, ''))
+                    self.nodes += 1
+    
+                if len(self.treeList[0].children) == 0:
                     self.treeList.append(Node(self.nodes, word[i]))
-                    self.treeList[j].attach_node(Node(self.nodes, word[i]))
+                    self.treeList[0].attach_node(Node(self.nodes, word[i]))
                     self.nodes += 1
                     j += 1
+                    if i == (len(word) - 1):
+                        self.treeList[j].end.append(k)
+                    
+                else:
+                    if word[i] in self.treeList[j].children.values():
+                        j = get_key(word[i], self.treeList[j].children)
+                    else:
+                        self.treeList.append(Node(self.nodes, word[i]))
+                        self.treeList[j].attach_node(Node(self.nodes, word[i]))
+                        self.nodes += 1
+                        j += 1
+                    
+                    if i == len(word) - 1:
+                        self.treeList[j].end.append(k)
+            k += 1
+        
+        for i in self.treeList:
+            print(i.children)
         return
 
 
@@ -50,6 +61,7 @@ class Node:
         self.parent = 0
         self.number = number
         self.letter = letter
+        self.end = []
         
     def attach_node(self,Node):
         self.children[Node.number] = Node.letter
