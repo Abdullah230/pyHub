@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message test_message{
+int32 user_number = 1;
+string user_message = 2;
+repeated string extra_details = 3;
+}
